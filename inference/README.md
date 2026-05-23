@@ -44,13 +44,17 @@ uv run python inference/vllm_local_inference.py query \
 
 `vllm_modal_inference.py` provides the Modal deployment version.
 
+For the full tested vLLM + BrowseComp+ runbook, including the required
+HarnesS-1 operating-point flags and evaluation command, see
+`../docs/run_vllm_browsecompplus.md`.
+
 ## Harness-1 Search Evaluation
 
 The Harness-1 operating point is temperature `1.0`. The eval scripts default to
 that value.
 
 BrowseComp+ is the public ready-to-run dataset path documented in
-`datagen/README.md`. The `web`, `sec`, and `patents` settings require users to
+`../datagen/README.md`. The `web`, `sec`, and `patents` settings require users to
 first build the matching Chroma-backed corpora, for example using the
 [Context-1 data-generation repository](https://github.com/chroma-core/context-1-data-gen).
 
