@@ -1,10 +1,10 @@
-# HarnesS-1
+# Harness-1
 
 [![Tinker Inference](https://img.shields.io/badge/Tinker-Inference-073f3d?labelColor=white)](https://github.com/pat-jj/harness-1/blob/main/inference/tinker_inference.md)
 [![Model Checkpoint](https://img.shields.io/badge/Hugging%20Face-Checkpoint-FFCA03?logo=huggingface&logoColor=FFCA03)](https://huggingface.co/pat-jj/harness-1)
 [![arXiv](https://img.shields.io/badge/arXiv-coming%20soon-b31b1b.svg?logo=arxiv&logoColor=white)](https://arxiv.org/)
 
-HarnesS-1 is a 20B search agent trained with reinforcement learning inside a
+Harness-1 is a 20B search agent trained with reinforcement learning inside a
 stateful retrieval harness. The harness maintains recoverable search state:
 candidate documents, curated evidence, evidence links, verification records, and
 budget-aware context. The policy keeps the semantic decisions: what to search,
@@ -50,7 +50,7 @@ less docs/run_vllm_browsecompplus.md
 
 ## Model Checkpoint
 
-The released HarnesS-1 weights are hosted on Hugging Face:
+The released Harness-1 weights are hosted on Hugging Face:
 
 ```text
 https://huggingface.co/pat-jj/harness-1
@@ -64,7 +64,7 @@ usage restrictions, and checkpoint metadata.
 
 - Serve the released checkpoint locally with vLLM.
 - Run raw `/v1/completions` smoke tests with token-id outputs.
-- Evaluate HarnesS-1 search behavior on BrowseComp+ when a compatible retrieval
+- Evaluate Harness-1 search behavior on BrowseComp+ when a compatible retrieval
   backend is available.
 - Run Tinker-hosted inference with the published checkpoint.
 - Inspect and extend the stateful search harness, tool environment, training
