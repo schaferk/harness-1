@@ -13,6 +13,7 @@
 - Re-ran `uv sync --extra vllm` successfully; `uv.lock` updated.
 - Committed on branch `fix-pysqlite3-aarch64` (commit `ecf8394`) and pushed
   to origin.
+- Documented this in `session-state.md` (commit `ade8889`), pushed.
 
 ## chromadb verification
 
@@ -27,3 +28,12 @@
 
 - Dependency install issue resolved and pushed.
 - chromadb confirmed working end to end on this machine.
+
+## Next step
+
+- Serve the model with vLLM:
+  ```
+  uv run python inference/vllm_local_inference.py serve \
+    --model pat-jj/harness-1 \
+    --served-model-name harness-1
+  ```
