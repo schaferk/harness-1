@@ -21,3 +21,7 @@ wandb/
 !assets/teaser_recall_barchart.png
 model_export/merged_model/
 model_export/adapter/
+
+# local session reminders
+session-state.md
+next-step.md
