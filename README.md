@@ -15,12 +15,6 @@ evidence is sufficient.
 
 ![Harness-1 average search performance](assets/teaser_recall_barchart.png)
 
-## News
-
-- **2026-06-15:** Released the Harness-1 training data and retrieval corpora as
-  [`pat-jj/harness-1-train-data`](https://huggingface.co/datasets/pat-jj/harness-1-train-data),
-  including 899 SFT trajectories and 3,453 RL SEC train-split examples.
-
 ## Quickstart
 
 For a minimal local smoke test, you need:
@@ -183,8 +177,16 @@ Credential scope:
 BrowseComp+, web, patents, and SEC corpus chunks used by the release are
 published under `corpora/` in
 [`pat-jj/harness-1-train-data`](https://huggingface.co/datasets/pat-jj/harness-1-train-data).
-The code still expects a compatible retrieval backend for full search evaluation;
-see `datagen/README.md` and `docs/run_vllm_browsecompplus.md` for setup notes.
+These files provide the released chunk text and metadata, but the code still
+expects a compatible retrieval backend for full search evaluation.
+
+For the most reproducible path, or if you want to rebuild/customize the indexes,
+we recommend regenerating the corpora and Chroma collections with the
+[Context-1 data-generation pipeline](https://github.com/chroma-core/context-1-data-gen).
+That pipeline documents the web, SEC, and patents data-generation/indexing flow
+used by the broader Context-1/Harness-1 environment. See `datagen/README.md` and
+`docs/run_vllm_browsecompplus.md` for how those corpora connect to this repo's
+evaluation scripts.
 
 ## Inference
 
