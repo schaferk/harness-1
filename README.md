@@ -2,6 +2,7 @@
 
 [![Tinker Inference](https://img.shields.io/badge/Tinker-Inference-073f3d?labelColor=white)](https://github.com/pat-jj/harness-1/blob/main/inference/tinker_inference.md)
 [![Model Checkpoint](https://img.shields.io/badge/Hugging%20Face-Checkpoint-FFCA03?logo=huggingface&logoColor=FFCA03)](https://huggingface.co/pat-jj/harness-1)
+[![Training Data](https://img.shields.io/badge/Hugging%20Face-Training%20Data-FFCA03?logo=huggingface&logoColor=FFCA03)](https://huggingface.co/datasets/pat-jj/harness-1-train-data)
 [![arXiv](https://img.shields.io/badge/arXiv-2606.02373-b31b1b.svg?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2606.02373)
 [![X](https://img.shields.io/badge/X-Post-000000.svg?logo=x&logoColor=white)](https://x.com/patpcj/status/2063298457398636570?s=20)
 
@@ -13,6 +14,12 @@ which documents to inspect or curate, what claims to verify, and when the
 evidence is sufficient.
 
 ![Harness-1 average search performance](assets/teaser_recall_barchart.png)
+
+## News
+
+- **2026-06-15:** Released the Harness-1 training data and retrieval corpora as
+  [`pat-jj/harness-1-train-data`](https://huggingface.co/datasets/pat-jj/harness-1-train-data),
+  including 899 SFT trajectories and 3,453 RL SEC train-split examples.
 
 ## Quickstart
 
@@ -53,6 +60,39 @@ https://huggingface.co/pat-jj/harness-1
 vLLM downloads the weights from Hugging Face on first use and then reuses the
 local Hugging Face cache. See the Hugging Face model page for model-card details,
 usage restrictions, and checkpoint metadata.
+
+## Training Data And Corpora
+
+The training data used for Harness-1 is published at
+[`pat-jj/harness-1-train-data`](https://huggingface.co/datasets/pat-jj/harness-1-train-data).
+It contains one `train` split with a `stage` column:
+
+- `sft`: 899 raw GPT-5.4-generated v8d SFT trajectories from
+  `generate_sft_ultra_0417.py`, used by `train_sft_ultra_0417.py`.
+- `rl`: 3,453 SEC training-split query records used for RL
+  (`TRAIN_DATASETS=sec`, `RL_QUERY_SPLIT=train`).
+
+```python
+from datasets import load_dataset
+
+ds = load_dataset("pat-jj/harness-1-train-data", split="train")
+sft = ds.filter(lambda row: row["stage"] == "sft")
+rl = ds.filter(lambda row: row["stage"] == "rl")
+```
+
+The same dataset repo also includes the retrieval corpora under `corpora/`, with
+chunk text and cleaned metadata for BrowseComp+, web, patents, and SEC. For
+example:
+
+```python
+from datasets import load_dataset
+
+sec_corpus = load_dataset(
+    "parquet",
+    data_files="hf://datasets/pat-jj/harness-1-train-data/corpora/sec/train/*.parquet",
+    split="train",
+)
+```
 
 ## What You Can Do
 
@@ -140,15 +180,11 @@ Credential scope:
 
 ## Dataset Availability
 
-BrowseComp+ is the public evaluation path documented in this release. The code
-expects local BrowseComp+ files plus a compatible Chroma retrieval collection.
-See `datagen/README.md` and `docs/run_vllm_browsecompplus.md`.
-
-The other in-domain corpora used in the paper, such as `web`, `sec`, and
-`patents`, are not bundled as public ready-made indexes. To evaluate those
-settings, first construct compatible corpora and Chroma collections, for example
-with the Context-1 data-generation pipeline:
-[chroma-core/context-1-data-gen](https://github.com/chroma-core/context-1-data-gen).
+BrowseComp+, web, patents, and SEC corpus chunks used by the release are
+published under `corpora/` in
+[`pat-jj/harness-1-train-data`](https://huggingface.co/datasets/pat-jj/harness-1-train-data).
+The code still expects a compatible retrieval backend for full search evaluation;
+see `datagen/README.md` and `docs/run_vllm_browsecompplus.md` for setup notes.
 
 ## Inference
 
